@@ -16,119 +16,53 @@ namespace Million.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<OwnerDto>>> GetAll()
+        public async Task<ActionResult<IEnumerable<OwnerDto>>> GetAll(CancellationToken cancellationToken)
         {
-            try
-            {
-                var owners = await _ownerFacade.GetAllOwnersAsync();
-                return Ok(owners);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
+            var owners = await _ownerFacade.GetAllOwnersAsync(cancellationToken);
+            if (owners == null || !owners.Any())
+                return NotFound("No owners found.");    
+
+            return Ok(owners);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<OwnerDto>> GetById(string id)
+        public async Task<ActionResult<OwnerDto>> GetById(string id, CancellationToken cancellationToken)
         {
-            try
-            {
-                var owner = await _ownerFacade.GetOwnerByIdAsync(id);
-                if (owner == null)
-                    return NotFound($"Owner with ID {id} not found.");
+            var owner = await _ownerFacade.GetOwnerByIdAsync(id, cancellationToken);
+            if (!owner.Success)
+                return NotFound(owner.Messages);
 
-                return Ok(owner);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
-        }
-
-        [HttpGet("name/{name}")]
-        public async Task<ActionResult<OwnerDto>> GetByName(string name)
-        {
-            try
-            {
-                var owner = await _ownerFacade.GetOwnerByNameAsync(name);
-                if (owner == null)
-                    return NotFound($"Owner with name {name} not found.");
-
-                return Ok(owner);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
-        }
-
-        [HttpGet("birth-date-range")]
-        public async Task<ActionResult<IEnumerable<OwnerDto>>> GetByBirthDateRange(
-            [FromQuery] DateTime startDate,
-            [FromQuery] DateTime endDate)
-        {
-            try
-            {
-                var owners = await _ownerFacade.GetOwnersByBirthDateRangeAsync(startDate, endDate);
-                return Ok(owners);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
+            return Ok(owner);
         }
 
         [HttpPost]
-        public async Task<ActionResult<OwnerDto>> Create([FromBody] CreateOwnerDto createDto)
+        public async Task<ActionResult<OwnerDto>> Create([FromBody] CreateOwnerDto createDto, CancellationToken cancellationToken)
         {
-            try
-            {
-                var owner = await _ownerFacade.CreateOwnerAsync(createDto);
-                return CreatedAtAction(nameof(GetById), new { id = owner.Id }, owner);
-            }
-            catch (InvalidOperationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
+            var owner = await _ownerFacade.CreateOwnerAsync(createDto, cancellationToken);
+            if (!owner.Success)
+                return BadRequest(owner.Messages);
+
+            return CreatedAtAction(nameof(GetById), new { id = owner.Id }, owner);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(string id, [FromBody] UpdateOwnerDto updateDto)
+        public async Task<IActionResult> Update(string id, [FromBody] UpdateOwnerDto updateDto, CancellationToken cancellationToken)
         {
-            try
-            {
-                var success = await _ownerFacade.UpdateOwnerAsync(id, updateDto);
-                if (!success)
-                    return NotFound($"Owner with ID {id} not found.");
+            var owner = await _ownerFacade.UpdateOwnerAsync(id, updateDto, cancellationToken);
+            if (!owner.Success)
+                return BadRequest(owner.Messages);
 
-                return NoContent();
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
+            return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(string id, CancellationToken cancellationToken)
         {
-            try
-            {
-                var success = await _ownerFacade.DeleteOwnerAsync(id);
-                if (!success)
-                    return NotFound($"Owner with ID {id} not found.");
+            var owner = await _ownerFacade.DeleteOwnerAsync(id, cancellationToken);
+            if (!owner.Success)
+                return BadRequest(owner.Messages);
 
-                return NoContent();
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
+            return NoContent();
         }
     }
 }

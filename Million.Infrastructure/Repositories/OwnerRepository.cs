@@ -11,12 +11,12 @@ namespace Million.Infrastructure.Repositories
         {
         }
 
-        public Task<Owner?> GetOwnerByNameAsync(string name)
+        public Task<Owner?> GetOwnerByNameAsync(string name, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Owner>> GetOwnersByBirthDateRangeAsync(DateTime startDate, DateTime endDate)
+        public Task<IEnumerable<Owner>> GetOwnersByBirthDateRangeAsync(DateTime startDate, DateTime endDate, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }

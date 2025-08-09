@@ -18,26 +18,26 @@ namespace Million.Application.Owners
         }
 
         // Query Methods
-        public Task<IEnumerable<OwnerDto>> GetAllOwnersAsync() =>
-            _queryHandler.GetAllOwnersAsync();
+        public async Task<IEnumerable<OwnerDto>> GetAllOwnersAsync(CancellationToken cancellationToken) =>
+            await _queryHandler.GetAllOwnersAsync(cancellationToken);
 
-        public Task<OwnerDto?> GetOwnerByIdAsync(string id) =>
-            _queryHandler.GetOwnerByIdAsync(id);
+        public async Task<OwnerDto> GetOwnerByIdAsync(string id, CancellationToken cancellationToken) =>
+            await _queryHandler.GetOwnerByIdAsync(id, cancellationToken);
 
-        public Task<OwnerDto?> GetOwnerByNameAsync(string name) =>
-            _queryHandler.GetOwnerByNameAsync(name);
+        public async Task<OwnerDto> GetOwnerByNameAsync(string name, CancellationToken cancellationToken) =>
+            await _queryHandler.GetOwnerByNameAsync(name, cancellationToken);
 
-        public Task<IEnumerable<OwnerDto>> GetOwnersByBirthDateRangeAsync(DateTime startDate, DateTime endDate) =>
-            _queryHandler.GetOwnersByBirthDateRangeAsync(startDate, endDate);
+        public async Task<IEnumerable<OwnerDto>> GetOwnersByBirthDateRangeAsync(DateTime startDate, DateTime endDate, CancellationToken cancellationToken) =>
+            await _queryHandler.GetOwnersByBirthDateRangeAsync(startDate, endDate, cancellationToken);
 
         // Command Methods
-        public Task<OwnerDto> CreateOwnerAsync(CreateOwnerDto createDto) =>
-            _commandHandler.CreateOwnerAsync(createDto);
+        public async Task<OwnerDto> CreateOwnerAsync(CreateOwnerDto createDto, CancellationToken cancellationToken) =>
+            await _commandHandler.CreateOwnerAsync(createDto, cancellationToken);
 
-        public Task<bool> UpdateOwnerAsync(string id, UpdateOwnerDto updateDto) =>
-            _commandHandler.UpdateOwnerAsync(id, updateDto);
+        public async Task<OwnerDto> UpdateOwnerAsync(string id, UpdateOwnerDto updateDto, CancellationToken cancellationToken) =>
+            await _commandHandler.UpdateOwnerAsync(id, updateDto, cancellationToken);
 
-        public Task<bool> DeleteOwnerAsync(string id) =>
-            _commandHandler.DeleteOwnerAsync(id);
+        public async Task<OwnerDto> DeleteOwnerAsync(string id, CancellationToken cancellationToken) =>
+            await _commandHandler.DeleteOwnerAsync(id, cancellationToken);
     }
 }

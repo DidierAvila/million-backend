@@ -4,7 +4,7 @@ namespace Million.Domain.Repositories
 {
     public interface IOwnerRepository : IRepository<Owner>
     {
-        Task<IEnumerable<Owner>> GetOwnersByBirthDateRangeAsync(DateTime startDate, DateTime endDate);
-        Task<Owner?> GetOwnerByNameAsync(string name);
+        Task<IEnumerable<Owner>> GetOwnersByBirthDateRangeAsync(DateTime startDate, DateTime endDate, CancellationToken cancellationToken = default);
+        Task<Owner?> GetOwnerByNameAsync(string name, CancellationToken cancellationToken = default);
     }
 }

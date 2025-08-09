@@ -18,29 +18,20 @@ namespace Million.Application.Properties
         }
 
         // Query Methods
-        public Task<IEnumerable<PropertyDto>> GetAllPropertiesAsync() =>
-            _queryHandler.GetAllPropertiesAsync();
+        public async Task<IEnumerable<PropertyDto>> GetAllPropertiesAsync(CancellationToken cancellationToken) =>
+            await _queryHandler.GetAllPropertiesAsync(cancellationToken);
 
-        public Task<PropertyDto?> GetPropertyByIdAsync(string id) =>
-            _queryHandler.GetPropertyByIdAsync(id);
-
-        public Task<IEnumerable<PropertyDto>> GetPropertiesByOwnerAsync(string ownerId) =>
-            _queryHandler.GetPropertiesByOwnerAsync(ownerId);
-
-        public Task<IEnumerable<PropertyDto>> GetPropertiesByPriceRangeAsync(decimal minPrice, decimal maxPrice) =>
-            _queryHandler.GetPropertiesByPriceRangeAsync(minPrice, maxPrice);
-
-        public Task<IEnumerable<PropertyDto>> GetPropertiesByYearAsync(int year) =>
-            _queryHandler.GetPropertiesByYearAsync(year);
+        public async Task<PropertyDto> GetPropertyByIdAsync(string id, CancellationToken cancellationToken) =>
+            await _queryHandler.GetPropertyByIdAsync(id, cancellationToken);
 
         // Command Methods
-        public Task<PropertyDto> CreatePropertyAsync(CreatePropertyDto createDto) =>
-            _commandHandler.CreatePropertyAsync(createDto);
+        public async Task<PropertyDto> CreatePropertyAsync(CreatePropertyDto createDto, CancellationToken cancellationToken) =>
+            await _commandHandler.CreatePropertyAsync(createDto, cancellationToken);
 
-        public Task<bool> UpdatePropertyAsync(string id, UpdatePropertyDto updateDto) =>
-            _commandHandler.UpdatePropertyAsync(id, updateDto);
+        public async Task<PropertyDto> UpdatePropertyAsync(string id, UpdatePropertyDto updateDto, CancellationToken cancellationToken) =>
+            await _commandHandler.UpdatePropertyAsync(id, updateDto, cancellationToken);
 
-        public Task<bool> DeletePropertyAsync(string id) =>
-            _commandHandler.DeletePropertyAsync(id);
+        public async Task<PropertyDto> DeletePropertyAsync(string id, CancellationToken cancellationToken) =>
+            await _commandHandler.DeletePropertyAsync(id, cancellationToken);
     }
 }

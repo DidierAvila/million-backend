@@ -4,8 +4,8 @@ namespace Million.Application.Properties.Commands
 {
     public interface IPropertyCommandHandler
     {
-        Task<PropertyDto> CreatePropertyAsync(CreatePropertyDto createDto);
-        Task<bool> UpdatePropertyAsync(string id, UpdatePropertyDto updateDto);
-        Task<bool> DeletePropertyAsync(string id);
+        Task<PropertyDto> CreatePropertyAsync(CreatePropertyDto createDto, CancellationToken cancellationToken);
+        Task<PropertyDto> UpdatePropertyAsync(string id, UpdatePropertyDto updateDto, CancellationToken cancellationToken  );
+        Task<PropertyDto> DeletePropertyAsync(string id, CancellationToken cancellationToken);
     }
 }

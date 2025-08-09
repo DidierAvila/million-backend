@@ -16,128 +16,53 @@ namespace Million.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<PropertyDto>>> GetAll()
+        public async Task<ActionResult<IEnumerable<PropertyDto>>> GetAll(CancellationToken cancellationToken)
         {
-            try
-            {
-                var properties = await _propertyFacade.GetAllPropertiesAsync();
-                return Ok(properties);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
+            var properties = await _propertyFacade.GetAllPropertiesAsync(cancellationToken);
+            if (properties == null || !properties.Any())
+                return NotFound("No owners found.");
+
+            return Ok(properties);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<PropertyDto>> GetById(string id)
+        public async Task<ActionResult<PropertyDto>> GetById(string id, CancellationToken cancellationToken)
         {
-            try
-            {
-                var property = await _propertyFacade.GetPropertyByIdAsync(id);
-                if (property == null)
-                    return NotFound($"Property with ID {id} not found.");
+            var property = await _propertyFacade.GetPropertyByIdAsync(id, cancellationToken);
+            if (!property.Success)
+                return NotFound(property.Messages);
 
-                return Ok(property);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
+            return Ok(property);
         }
 
         [HttpPost]
-        public async Task<ActionResult<PropertyDto>> Create([FromBody] CreatePropertyDto createDto)
+        public async Task<ActionResult<PropertyDto>> Create([FromBody] CreatePropertyDto createDto, CancellationToken cancellationToken)
         {
-            try
-            {
-                var property = await _propertyFacade.CreatePropertyAsync(createDto);
-                return CreatedAtAction(nameof(GetById), new { id = property.Id }, property);
-            }
-            catch (InvalidOperationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
+            var property = await _propertyFacade.CreatePropertyAsync(createDto, cancellationToken);
+            if (!property.Success)
+                return BadRequest(property.Messages);
+
+            return CreatedAtAction(nameof(GetById), new { id = property.Id }, property);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(string id, [FromBody] UpdatePropertyDto updateDto)
+        public async Task<IActionResult> Update(string id, [FromBody] UpdatePropertyDto updateDto, CancellationToken cancellationToken)
         {
-            try
-            {
-                var success = await _propertyFacade.UpdatePropertyAsync(id, updateDto);
-                if (!success)
-                    return NotFound($"Property with ID {id} not found.");
+            var success = await _propertyFacade.UpdatePropertyAsync(id, updateDto, cancellationToken);
+            if (!success.Success)
+                return BadRequest(success.Messages);
 
-                return NoContent();
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
+            return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> Delete(string id, CancellationToken cancellationToken)
         {
-            try
-            {
-                var success = await _propertyFacade.DeletePropertyAsync(id);
-                if (!success)
-                    return NotFound($"Property with ID {id} not found.");
+            var success = await _propertyFacade.DeletePropertyAsync(id, cancellationToken);
+            if (!success.Success)
+                return BadRequest(success.Messages);
 
-                return NoContent();
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
-        }
-
-        [HttpGet("owner/{ownerId}")]
-        public async Task<ActionResult<IEnumerable<PropertyDto>>> GetByOwner(string ownerId)
-        {
-            try
-            {
-                var properties = await _propertyFacade.GetPropertiesByOwnerAsync(ownerId);
-                return Ok(properties);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
-        }
-
-        [HttpGet("price-range")]
-        public async Task<ActionResult<IEnumerable<PropertyDto>>> GetByPriceRange([FromQuery] decimal minPrice, [FromQuery] decimal maxPrice)
-        {
-            try
-            {
-                var properties = await _propertyFacade.GetPropertiesByPriceRangeAsync(minPrice, maxPrice);
-                return Ok(properties);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
-        }
-
-        [HttpGet("year/{year}")]
-        public async Task<ActionResult<IEnumerable<PropertyDto>>> GetByYear(int year)
-        {
-            try
-            {
-                var properties = await _propertyFacade.GetPropertiesByYearAsync(year);
-                return Ok(properties);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
+            return NoContent();
         }
     }
 }
