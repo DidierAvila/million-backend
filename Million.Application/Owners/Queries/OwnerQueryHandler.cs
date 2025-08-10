@@ -65,5 +65,20 @@ namespace Million.Application.Owners.Queries
             var owners = await _ownerRepository.GetOwnersByBirthDateRangeAsync(startDate, endDate, cancellationToken);
             return _mapper.Map<IEnumerable<OwnerDto>>(owners);
         }
+
+        public async Task<IEnumerable<OwnerDto>> GetOwnersByNameContainingAsync(string name, CancellationToken cancellationToken = default)
+        {
+            try
+            {
+                var owners = await _ownerRepository.GetOwnersByNameContainingAsync(name, cancellationToken);
+                return _mapper.Map<IEnumerable<OwnerDto>>(owners);
+            }
+            catch (Exception ex)
+            {
+                var errorMessage = $"An error occurred while retrieving owners with name containing '{name}'.";
+                _logger.LogError(ex, errorMessage);
+                return Array.Empty<OwnerDto>();
+            }
+        }
     }
 }

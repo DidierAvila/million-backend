@@ -30,6 +30,9 @@ namespace Million.Application.Owners
         public async Task<IEnumerable<OwnerDto>> GetOwnersByBirthDateRangeAsync(DateTime startDate, DateTime endDate, CancellationToken cancellationToken) =>
             await _queryHandler.GetOwnersByBirthDateRangeAsync(startDate, endDate, cancellationToken);
 
+        public async Task<IEnumerable<OwnerDto>> GetOwnersByNameContainingAsync(string name, CancellationToken cancellationToken) =>
+            await _queryHandler.GetOwnersByNameContainingAsync(name, cancellationToken);
+
         // Command Methods
         public async Task<OwnerDto> CreateOwnerAsync(CreateOwnerDto createDto, CancellationToken cancellationToken) =>
             await _commandHandler.CreateOwnerAsync(createDto, cancellationToken);

@@ -8,5 +8,6 @@ namespace Million.Application.Owners.Queries
         Task<OwnerDto> GetOwnerByIdAsync(string id, CancellationToken cancellationToken = default);
         Task<OwnerDto> GetOwnerByNameAsync(string name, CancellationToken cancellationToken = default);
         Task<IEnumerable<OwnerDto>> GetOwnersByBirthDateRangeAsync(DateTime startDate, DateTime endDate, CancellationToken cancellationToken = default);
+        Task<IEnumerable<OwnerDto>> GetOwnersByNameContainingAsync(string name, CancellationToken cancellationToken = default);
     }
 }

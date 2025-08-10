@@ -16,9 +16,12 @@ namespace Million.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<OwnerDto>>> GetAll(CancellationToken cancellationToken)
+        public async Task<ActionResult<IEnumerable<OwnerDto>>> GetAll([FromQuery] string? name, CancellationToken cancellationToken)
         {
-            var owners = await _ownerFacade.GetAllOwnersAsync(cancellationToken);
+            var owners = string.IsNullOrWhiteSpace(name) 
+                ? await _ownerFacade.GetAllOwnersAsync(cancellationToken)
+                : await _ownerFacade.GetOwnersByNameContainingAsync(name, cancellationToken);
+
             if (owners == null || !owners.Any())
                 return NotFound("No owners found.");    
 

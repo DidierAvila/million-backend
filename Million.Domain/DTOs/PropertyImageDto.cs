@@ -2,22 +2,25 @@ namespace Million.Domain.DTOs
 {
     public class PropertyImageDto
     {
-        public string? Id { get; set; }
-        public string PropertyId { get; set; } = null!;
+        public string IdPropertyImage { get; set; } = null!;
+        public string IdProperty { get; set; } = null!;
         public byte[] File { get; set; } = null!;
         public bool Enabled { get; set; }
-        public string? PropertyName { get; set; } // Información adicional de la propiedad
+        public string? PropertyName { get; set; }
+        public string? Messages { get; set; }
+        public bool Success { get; set; } = true;
     }
 
     public class CreatePropertyImageDto
     {
-        public string PropertyId { get; set; } = null!;
+        public string IdProperty { get; set; } = null!;
         public byte[] File { get; set; } = null!;
         public bool Enabled { get; set; } = true;
     }
 
     public class UpdatePropertyImageDto
     {
-        public bool Enabled { get; set; }
+        public byte[]? File { get; set; }
+        public bool? Enabled { get; set; }
     }
 }

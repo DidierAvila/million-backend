@@ -18,7 +18,7 @@ namespace Million.Application.Properties.Queries
             _logger = logger;
         }
 
-        public async Task<IEnumerable<PropertyDto>> GetAllPropertiesAsync(CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<PropertyDto>> GetAllPropertiesAsync(CancellationToken cancellationToken)
         {
             try
             {
@@ -33,7 +33,7 @@ namespace Million.Application.Properties.Queries
             }
         }
 
-        public async Task<PropertyDto> GetPropertyByIdAsync(string id, CancellationToken cancellationToken = default)
+        public async Task<PropertyDto> GetPropertyByIdAsync(string id, CancellationToken cancellationToken)
         {
             try
             {

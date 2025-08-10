@@ -4,7 +4,7 @@ namespace Million.Application.Properties.Queries
 {
     public interface IPropertyQueryHandler
     {
-        Task<IEnumerable<PropertyDto>> GetAllPropertiesAsync(CancellationToken cancellationToken = default);
-        Task<PropertyDto> GetPropertyByIdAsync(string id, CancellationToken cancellationToken = default);
+        Task<IEnumerable<PropertyDto>> GetAllPropertiesAsync(CancellationToken cancellationToken);
+        Task<PropertyDto> GetPropertyByIdAsync(string id, CancellationToken cancellationToken);
     }
 }
