@@ -12,10 +12,19 @@ namespace Million.Domain.Entities
         [BsonElement("idProperty")]
         public string IdProperty { get; set; } = null!;
 
-        [BsonElement("saleDate")]
-        public DateTime SaleDate { get; set; }
+        [BsonElement("date")]
+        public DateTime Date { get; set; }
 
         [BsonElement("value")]
         public decimal Value { get; set; }
+
+        [BsonElement("tax")]
+        public decimal Tax { get; set; }
+
+        [BsonElement("name")]
+        public string Name { get; set; } = null!;
+
+        [BsonElement("operation")]
+        public string Operation { get; set; } = null!;
     }
 }

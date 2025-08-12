@@ -12,17 +12,19 @@ namespace Million.Infrastructure.Repositories
         {
         }
 
-        public Task<Owner?> GetOwnerByNameAsync(string name, CancellationToken cancellationToken = default)
+        public async Task<Owner?> GetOwnerByNameAsync(string name, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            return await _collection.Find(x => x.Name == name).FirstOrDefaultAsync(cancellationToken);
         }
 
-        public Task<IEnumerable<Owner>> GetOwnersByBirthDateRangeAsync(DateTime startDate, DateTime endDate, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<Owner>> GetOwnersByBirthDateRangeAsync(DateTime startDate, DateTime endDate, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            return await _collection
+                    .Find(x => x.BirthDate >= startDate && x.BirthDate <= endDate)
+                    .ToListAsync(cancellationToken);
         }
 
-        public async Task<IEnumerable<Owner>> GetOwnersByNameContainingAsync(string name, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<Owner>> GetOwnersByNameContainingAsync(string name, CancellationToken cancellationToken)
         {
             var filter = Builders<Owner>.Filter.Regex(x => x.Name, new MongoDB.Bson.BsonRegularExpression(name, "i"));
             return await _collection.Find(filter).ToListAsync(cancellationToken);

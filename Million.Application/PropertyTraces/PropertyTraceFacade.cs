@@ -34,9 +34,6 @@ namespace Million.Application.PropertyTraces
         public Task<PropertyTraceDto> CreatePropertyTraceAsync(CreatePropertyTraceDto createDto, CancellationToken cancellationToken) =>
             _commandHandler.CreatePropertyTraceAsync(createDto, cancellationToken);
 
-        public Task<bool> UpdatePropertyTraceAsync(string id, UpdatePropertyTraceDto updateDto, CancellationToken cancellationToken) =>
-            _commandHandler.UpdatePropertyTraceAsync(id, updateDto, cancellationToken);
-
         public Task<bool> DeletePropertyTraceAsync(string id, CancellationToken cancellationToken) =>
             _commandHandler.DeletePropertyTraceAsync(id, cancellationToken);
     }

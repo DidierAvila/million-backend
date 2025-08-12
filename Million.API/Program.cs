@@ -1,9 +1,13 @@
 using System.Text;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Million.API.Extensions;
+using Million.API.Middlewares;
 using Million.Application.Mappings;
+using Million.Domain.Extensions;
 using Million.Infrastructure.DbContexts;
 using Million.Infrastructure.Settings;
 
@@ -11,6 +15,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Configure Services
 builder.Services.AddControllers();
+builder.Services.AddFluentValidationAutoValidation()
+    .AddFluentValidationClientsideAdapters();
 builder.Services.AddEndpointsApiExplorer();
 
 // Configure logging
@@ -28,6 +34,9 @@ builder.Services.AddScoped<IMillionDbContext, MillionDbContext>();
 
 // add services and repositories
 builder.Services.AddApiExtention();
+
+// Add validators
+builder.Services.AddValidators();
 
 // AutoMapper Configuration
 builder.Services.AddAutoMapper(cfg => 
@@ -112,6 +121,9 @@ if (app.Environment.IsDevelopment())
     });
     app.UseDeveloperExceptionPage();
 }
+
+// Add validation exception handler middleware
+app.UseValidationExceptionHandler();
 
 app.UseHttpsRedirection();
 app.UseCors("AllowAll");

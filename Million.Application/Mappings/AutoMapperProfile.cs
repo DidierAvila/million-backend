@@ -28,8 +28,7 @@ namespace Million.Application.Mappings
 
             // PropertyTrace mappings
             CreateMap<PropertyTrace, PropertyTraceDto>();
-            CreateMap<CreatePropertyTraceDto, PropertyTrace>();
-            CreateMap<UpdatePropertyTraceDto, PropertyTrace>()
+            CreateMap<CreatePropertyTraceDto, PropertyTrace>()
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
         }
     }

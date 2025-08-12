@@ -21,7 +21,7 @@ namespace Million.Application.PropertyTraces.Commands
             _mapper = mapper;
         }
 
-        public async Task<PropertyTraceDto> CreatePropertyTraceAsync(CreatePropertyTraceDto createDto, CancellationToken cancellationToken = default)
+        public async Task<PropertyTraceDto> CreatePropertyTraceAsync(CreatePropertyTraceDto createDto, CancellationToken cancellationToken)
         {
             // Verificar que la propiedad existe
             if (!await _propertyRepository.ExistsAsync(p => p.Id == createDto.PropertyId, cancellationToken))
@@ -32,17 +32,7 @@ namespace Million.Application.PropertyTraces.Commands
             return _mapper.Map<PropertyTraceDto>(created);
         }
 
-        public async Task<bool> UpdatePropertyTraceAsync(string id, UpdatePropertyTraceDto updateDto, CancellationToken cancellationToken = default)
-        {
-            var existingTrace = await _propertyTraceRepository.GetByIdAsync(id, cancellationToken);
-            if (existingTrace == null)
-                return false;
-
-            _mapper.Map(updateDto, existingTrace);
-            return await _propertyTraceRepository.UpdateAsync(id, existingTrace, cancellationToken);
-        }
-
-        public async Task<bool> DeletePropertyTraceAsync(string id, CancellationToken cancellationToken = default)
+        public async Task<bool> DeletePropertyTraceAsync(string id, CancellationToken cancellationToken)
         {
             return await _propertyTraceRepository.DeleteAsync(id, cancellationToken);
         }

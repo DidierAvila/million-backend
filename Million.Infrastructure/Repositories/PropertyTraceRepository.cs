@@ -21,8 +21,8 @@ namespace Million.Infrastructure.Repositories
         public async Task<IEnumerable<PropertyTrace>> GetTracesByDateRangeAsync(DateTime startDate, DateTime endDate, CancellationToken cancellationToken = default)
         {
             var filter = Builders<PropertyTrace>.Filter.And(
-                Builders<PropertyTrace>.Filter.Gte(x => x.SaleDate, startDate),
-                Builders<PropertyTrace>.Filter.Lte(x => x.SaleDate, endDate)
+                Builders<PropertyTrace>.Filter.Gte(x => x.Date, startDate),
+                Builders<PropertyTrace>.Filter.Lte(x => x.Date, endDate)
             );
             return await _collection.Find(filter).ToListAsync(cancellationToken);
         }

@@ -4,8 +4,11 @@ namespace Million.Domain.DTOs
     {
         public string IdPropertyTrace { get; set; } = null!;
         public string PropertyId { get; set; } = null!;
-        public DateTime SaleDate { get; set; }
+        public DateTime Date { get; set; }
         public decimal Value { get; set; }
+        public decimal Tax { get; set; }
+        public string Name { get; set; } = null!;
+        public string Operation { get; set; } = null!;
         public string? PropertyName { get; set; }
         public string? Messages { get; set; }
         public bool Success { get; set; } = true;
@@ -14,13 +17,10 @@ namespace Million.Domain.DTOs
     public class CreatePropertyTraceDto
     {
         public string PropertyId { get; set; } = null!;
-        public DateTime SaleDate { get; set; }
+        public DateTime Date { get; set; }
         public decimal Value { get; set; }
-    }
-
-    public class UpdatePropertyTraceDto
-    {
-        public DateTime SaleDate { get; set; }
-        public decimal Value { get; set; }
+        public decimal Tax { get; set; }
+        public string Name { get; set; } = null!;
+        public string Operation { get; set; } = null!;
     }
 }

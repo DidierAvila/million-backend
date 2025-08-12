@@ -9,13 +9,19 @@ namespace Million.Application.Properties.Commands
     public class PropertyCommandHandler : IPropertyCommandHandler
     {
         private readonly IPropertyRepository _propertyRepository;
+        private readonly IPropertyTraceRepository _propertyTraceRepository;
         private readonly IMapper _mapper;
         private readonly ILogger<PropertyCommandHandler> _logger;
 
 
-        public PropertyCommandHandler(IPropertyRepository propertyRepository, IMapper mapper, ILogger<PropertyCommandHandler> logger)
+        public PropertyCommandHandler(
+            IPropertyRepository propertyRepository, 
+            IPropertyTraceRepository propertyTraceRepository,
+            IMapper mapper, 
+            ILogger<PropertyCommandHandler> logger)
         {
             _propertyRepository = propertyRepository;
+            _propertyTraceRepository = propertyTraceRepository;
             _mapper = mapper;
             _logger = logger;
         }
@@ -35,6 +41,20 @@ namespace Million.Application.Properties.Commands
                     return new PropertyDto() { Messages = "A property with this address already exists.", Success = false };
 
                 var created = await _propertyRepository.AddAsync(property, cancellationToken);
+                
+                // Crear registro de traza
+                var propertyTrace = new PropertyTrace
+                {
+                    IdProperty = created.Id,
+                    Date = DateTime.UtcNow,
+                    Value = created.Price,
+                    Name = created.Name,
+                    Tax = 0, // Ahora el impuesto se registra en la traza
+                    Operation = "CREATE"
+                };
+                
+                await _propertyTraceRepository.AddAsync(propertyTrace, cancellationToken);
+                
                 return _mapper.Map<PropertyDto>(created);
             }
             catch (Exception ex)
@@ -63,6 +83,20 @@ namespace Million.Application.Properties.Commands
 
                 _mapper.Map(updateDto, existingProperty);
                 await _propertyRepository.UpdateAsync(id, existingProperty, cancellationToken);
+                
+                // Crear registro de traza
+                var propertyTrace = new PropertyTrace
+                {
+                    IdProperty = id,
+                    Date = DateTime.UtcNow,
+                    Value = existingProperty.Price,
+                    Name = existingProperty.Name,
+                    Tax = 0, // El impuesto ahora se registra en la traza
+                    Operation = "UPDATE"
+                };
+                
+                await _propertyTraceRepository.AddAsync(propertyTrace, cancellationToken);
+                
                 return new PropertyDto() { Success = true };
             }
             catch (Exception ex)
@@ -81,6 +115,19 @@ namespace Million.Application.Properties.Commands
                 if (existingProperty == null)
                     return new PropertyDto() { Success = false, Messages = $"Property with ID {id} not found." };
 
+                // Crear registro de traza antes de eliminar la propiedad
+                var propertyTrace = new PropertyTrace
+                {
+                    IdProperty = id,
+                    Date = DateTime.UtcNow,
+                    Value = existingProperty.Price,
+                    Name = existingProperty.Name,
+                    Tax = 0, // El impuesto ahora se registra en la traza
+                    Operation = "DELETE"
+                };
+                
+                await _propertyTraceRepository.AddAsync(propertyTrace, cancellationToken);
+                
                 await _propertyRepository.DeleteAsync(id, cancellationToken);
                 return new PropertyDto() { Success = true };
             }

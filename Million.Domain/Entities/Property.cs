@@ -18,9 +18,6 @@ namespace Million.Domain.Entities
 
         [BsonElement("price")]
         public decimal Price { get; set; }
-        
-        [BsonElement("taxes")]
-        public decimal Taxes { get; set; }
 
         [BsonElement("year")]
         public int Year { get; set; }

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Million.Application.Owners;
 using Million.Domain.DTOs;
@@ -56,6 +57,7 @@ namespace Million.API.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(string id, CancellationToken cancellationToken)
         {
             var owner = await _ownerFacade.DeleteOwnerAsync(id, cancellationToken);

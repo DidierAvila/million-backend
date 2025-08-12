@@ -12,13 +12,13 @@ namespace Million.Infrastructure.Repositories
         {
         }
 
-        public async Task<IEnumerable<PropertyImage>> GetImagesByPropertyIdAsync(string propertyId, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<PropertyImage>> GetImagesByPropertyIdAsync(string propertyId, CancellationToken cancellationToken)
         {
             var filter = Builders<PropertyImage>.Filter.Eq(x => x.IdProperty, propertyId);
             return await _collection.Find(filter).ToListAsync(cancellationToken);
         }
 
-        public async Task<IEnumerable<PropertyImage>> GetEnabledImagesByPropertyIdAsync(string propertyId, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<PropertyImage>> GetEnabledImagesByPropertyIdAsync(string propertyId, CancellationToken cancellationToken)
         {
             var filter = Builders<PropertyImage>.Filter.And(
                 Builders<PropertyImage>.Filter.Eq(x => x.IdProperty, propertyId),

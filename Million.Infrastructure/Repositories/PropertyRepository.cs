@@ -11,13 +11,13 @@ namespace Million.Infrastructure.Repositories
         {
         }
 
-        public async Task<IEnumerable<Property>> GetPropertiesByOwnerAsync(string ownerId, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<Property>> GetPropertiesByOwnerAsync(string ownerId, CancellationToken cancellationToken)
         {
             var filter = Builders<Property>.Filter.Eq(p => p.IdOwner, ownerId);
             return await _collection.Find(filter).ToListAsync(cancellationToken);
         }
 
-        public async Task<IEnumerable<Property>> GetPropertiesByPriceRangeAsync(decimal minPrice, decimal maxPrice, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<Property>> GetPropertiesByPriceRangeAsync(decimal minPrice, decimal maxPrice, CancellationToken cancellationToken)
         {
             var filter = Builders<Property>.Filter.And(
                 Builders<Property>.Filter.Gte(p => p.Price, minPrice),
@@ -26,7 +26,7 @@ namespace Million.Infrastructure.Repositories
             return await _collection.Find(filter).ToListAsync(cancellationToken);
         }
 
-        public async Task<IEnumerable<Property>> GetPropertiesByYearAsync(int year, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<Property>> GetPropertiesByYearAsync(int year, CancellationToken cancellationToken)
         {
             var filter = Builders<Property>.Filter.Eq(p => p.Year, year);
             return await _collection.Find(filter).ToListAsync(cancellationToken);
@@ -37,7 +37,7 @@ namespace Million.Infrastructure.Repositories
             string? address,
             decimal? minPrice,
             decimal? maxPrice,
-            CancellationToken cancellationToken = default)
+            CancellationToken cancellationToken)
         {
             var filters = new List<FilterDefinition<Property>>();
 

@@ -6,7 +6,6 @@ namespace Million.Domain.DTOs
         public string Name { get; set; } = null!;
         public string Address { get; set; } = null!;
         public decimal Price { get; set; }
-        public decimal Taxes { get; set; }
         public int Year { get; set; }
         public string InternalCode { get; set; } = null!;
         public string IdOwner { get; set; } = null!;
@@ -20,7 +19,6 @@ namespace Million.Domain.DTOs
         public string Name { get; set; } = null!;
         public string Address { get; set; } = null!;
         public decimal Price { get; set; }
-        public decimal Taxes { get; set; }
         public int Year { get; set; }
         public string InternalCode { get; set; } = null!;
         public string IdOwner { get; set; } = null!;
@@ -32,7 +30,6 @@ namespace Million.Domain.DTOs
         public string Name { get; set; } = null!;
         public string Address { get; set; } = null!;
         public decimal Price { get; set; }
-        public decimal Taxes { get; set; }
         public int Year { get; set; }
         public string InternalCode { get; set; } = null!;
         public string IdOwner { get; set; } = null!;

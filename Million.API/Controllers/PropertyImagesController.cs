@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Million.Application.PropertyImages;
 using Million.Domain.DTOs;
@@ -60,6 +61,7 @@ namespace Million.API.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(string id, CancellationToken cancellationToken)
         {
             var result = await _propertyImageFacade.DeletePropertyImageAsync(id, cancellationToken);
