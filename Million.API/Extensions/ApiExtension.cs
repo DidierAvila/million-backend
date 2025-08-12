@@ -5,6 +5,12 @@ using Million.Application.Owners.Queries;
 using Million.Application.Properties;
 using Million.Application.Properties.Commands;
 using Million.Application.Properties.Queries;
+using Million.Application.PropertyImages;
+using Million.Application.PropertyImages.Commands;
+using Million.Application.PropertyImages.Queries;
+using Million.Application.PropertyTraces;
+using Million.Application.PropertyTraces.Commands;
+using Million.Application.PropertyTraces.Queries;
 using Million.Domain.Repositories;
 using Million.Infrastructure.DbContexts;
 using Million.Infrastructure.Repositories;
@@ -21,7 +27,7 @@ namespace Million.API.Extensions
                 var context = sp.GetRequiredService<IMillionDbContext>();
                 return new PropertyRepository(context);
             });
-            
+
             services.AddScoped<ITokenRepository>(sp =>
             {
                 var context = sp.GetRequiredService<IMillionDbContext>();
@@ -40,6 +46,9 @@ namespace Million.API.Extensions
                 return new UserRepository(context);
             });
 
+            services.AddScoped<IPropertyImageRepository, PropertyImageRepository>();
+            services.AddScoped<IPropertyTraceRepository, PropertyTraceRepository>();
+
             // Services
             services.AddScoped<IAuthentication, Authentication>();
 
@@ -51,6 +60,14 @@ namespace Million.API.Extensions
             services.AddScoped<IOwnerCommandHandler, OwnerCommandHandler>();
             services.AddScoped<IOwnerQueryHandler, OwnerQueryHandler>();
             services.AddScoped<OwnerFacade>();
+
+            services.AddScoped<IPropertyImageCommandHandler, PropertyImageCommandHandler>();
+            services.AddScoped<IPropertyImageQueryHandler, PropertyImageQueryHandler>();
+            services.AddScoped<PropertyImageFacade>();
+
+            services.AddScoped<IPropertyTraceCommandHandler, PropertyTraceCommandHandler>();
+            services.AddScoped<IPropertyTraceQueryHandler, PropertyTraceQueryHandler>();
+            services.AddScoped<PropertyTraceFacade>();
 
             return services;
         }

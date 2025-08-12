@@ -24,6 +24,10 @@ namespace Million.Application.Properties
         public async Task<PropertyDto> GetPropertyByIdAsync(string id, CancellationToken cancellationToken) =>
             await _queryHandler.GetPropertyByIdAsync(id, cancellationToken);
 
+        public async Task<IEnumerable<PropertyDto>> GetPropertiesWithFiltersAsync(string? name, string? address, decimal? minPrice,
+            decimal? maxPrice, CancellationToken cancellationToken) =>
+            await _queryHandler.GetPropertiesWithFiltersAsync(name, address, minPrice, maxPrice, cancellationToken);
+
         // Command Methods
         public async Task<PropertyDto> CreatePropertyAsync(CreatePropertyDto createDto, CancellationToken cancellationToken) =>
             await _commandHandler.CreatePropertyAsync(createDto, cancellationToken);

@@ -30,10 +30,7 @@ namespace Million.API.Controllers
         {
             try
             {
-                var images = await _propertyImageFacade.GetImagesByPropertyIdAsync(propertyId, cancellationToken);
-                if (images == null || !images.Any())
-                    return NotFound($"No images found for property with ID {propertyId}.");
-
+                IEnumerable<PropertyImageDto> images = await _propertyImageFacade.GetImagesByPropertyIdAsync(propertyId, cancellationToken);
                 return Ok(images);
             }
             catch (Exception ex)

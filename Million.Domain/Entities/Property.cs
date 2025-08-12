@@ -1,5 +1,6 @@
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Million.Domain.Entities
 {
@@ -29,5 +30,8 @@ namespace Million.Domain.Entities
 
         [BsonElement("idOwner")]
         public string IdOwner { get; set; } = null!;
+
+        [NotMapped]
+        public string? OwnerName { get; set; }
     }
 }

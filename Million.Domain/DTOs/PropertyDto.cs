@@ -9,7 +9,7 @@ namespace Million.Domain.DTOs
         public decimal Taxes { get; set; }
         public int Year { get; set; }
         public string InternalCode { get; set; } = null!;
-        public string OwnerId { get; set; } = null!;
+        public string IdOwner { get; set; } = null!;
         public string? OwnerName { get; set; }
         public string? Messages { get; set; }
         public bool Success { get; set; } = true;
@@ -23,7 +23,8 @@ namespace Million.Domain.DTOs
         public decimal Taxes { get; set; }
         public int Year { get; set; }
         public string InternalCode { get; set; } = null!;
-        public string OwnerId { get; set; } = null!;
+        public string IdOwner { get; set; } = null!;
+        public ICollection<CreatePropertyImageDto>? Images { get; set; }
     }
 
     public class UpdatePropertyDto
@@ -34,5 +35,6 @@ namespace Million.Domain.DTOs
         public decimal Taxes { get; set; }
         public int Year { get; set; }
         public string InternalCode { get; set; } = null!;
+        public string IdOwner { get; set; } = null!;
     }
 }

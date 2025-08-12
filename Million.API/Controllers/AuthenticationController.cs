@@ -29,5 +29,17 @@ namespace Million.API.Controllers
 
             return Ok(Response.Token);
         }
+
+        [HttpPost]
+        [Route("Register")]
+        public async Task<IActionResult> Register([FromBody] CreateUserDto createUser, CancellationToken cancellationToken)
+        {
+            _logger.LogInformation("Register");
+            LoginResponse Response = await _authentication.Register(createUser, cancellationToken);
+            if (!Response.Success)
+                return BadRequest(Response.Messages);
+
+            return Ok(Response.Messages);
+        }
     }
 }

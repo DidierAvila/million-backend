@@ -30,10 +30,7 @@ namespace Million.API.Controllers
         {
             try
             {
-                var traces = await _propertyTraceFacade.GetTracesByPropertyIdAsync(propertyId, cancellationToken);
-                if (traces == null || !traces.Any())
-                    return NotFound($"No traces found for property with ID {propertyId}.");
-
+                IEnumerable<PropertyTraceDto> traces = await _propertyTraceFacade.GetTracesByPropertyIdAsync(propertyId, cancellationToken);
                 return Ok(traces);
             }
             catch (Exception ex)

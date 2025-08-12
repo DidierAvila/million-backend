@@ -27,21 +27,21 @@ namespace Million.Infrastructure.DbContexts
         }
 
         public IMongoCollection<Property> Properties => 
-            _database.GetCollection<Property>("Properties");
+            _database.GetCollection<Property>("properties");
             
         public IMongoCollection<PropertyImage> PropertyImages => 
-            _database.GetCollection<PropertyImage>("PropertyImages");
+            _database.GetCollection<PropertyImage>("properties_image");
             
         public IMongoCollection<Owner> Owners => 
-            _database.GetCollection<Owner>("Owners");
+            _database.GetCollection<Owner>("owners");
             
         public IMongoCollection<PropertyTrace> PropertyTraces => 
-            _database.GetCollection<PropertyTrace>("PropertyTraces");
+            _database.GetCollection<PropertyTrace>("properties_trace");
             
         public IMongoCollection<User> Users => 
-            _database.GetCollection<User>("Users");
+            _database.GetCollection<User>("users");
             
         public IMongoCollection<Token> Tokens => 
-            _database.GetCollection<Token>("Tokens");
+            _database.GetCollection<Token>("tokens");
     }
 }

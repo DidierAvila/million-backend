@@ -7,10 +7,16 @@ namespace Million.Domain.Entities
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string IdOwner { get; set; } = null!;
+        public string Id { get; set; } = null!;
 
         [BsonElement("name")]
         public string Name { get; set; } = null!;
+
+        [BsonElement("address")]
+        public string Address { get; set; } = null!;
+
+        [BsonElement("photo")]
+        public byte[]? photo { get; set; }
 
         [BsonElement("birthDate")]
         public DateTime BirthDate { get; set; }

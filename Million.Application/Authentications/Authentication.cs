@@ -37,6 +37,19 @@ namespace Million.Application.Authentications
             return new LoginResponse() { Success = false, Messages = "Login failed for user:" + autorizacion.UserName };
         }
 
+        public async Task<LoginResponse> Register(CreateUserDto createUser, CancellationToken cancellationToken)
+        {
+            _ = await _UserRepository.AddAsync(new User
+            {
+                Name = createUser.Name,
+                LastName = createUser.LastName,
+                Email = createUser.Email,
+                Password = createUser.Password,
+                Role = createUser.Role
+            }, cancellationToken);
+            return new LoginResponse() { Success = true, Messages = "User created" };
+        }
+
         private async Task<string> GenerateTokenAsync(User user, CancellationToken cancellationToken)
         {
             string? key = _configuration.GetValue<string>("JwtSettings:key");

@@ -16,12 +16,14 @@ namespace Million.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<PropertyDto>>> GetAll(CancellationToken cancellationToken)
+        public async Task<ActionResult<IEnumerable<PropertyDto>>> GetAll(
+            [FromQuery] string? name = null,
+            [FromQuery] string? address = null,
+            [FromQuery] decimal? minPrice = null,
+            [FromQuery] decimal? maxPrice = null,
+            CancellationToken cancellationToken = default)
         {
-            var properties = await _propertyFacade.GetAllPropertiesAsync(cancellationToken);
-            if (properties == null || !properties.Any())
-                return NotFound("No owners found.");
-
+            IEnumerable<PropertyDto> properties = await _propertyFacade.GetPropertiesWithFiltersAsync(name, address, minPrice, maxPrice, cancellationToken);
             return Ok(properties);
         }
 
