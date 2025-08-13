@@ -12,6 +12,7 @@ using Million.Application.Mappings;
 using Million.Application.Services;
 using Million.Domain.Extensions;
 using Million.Infrastructure.DbContexts;
+using Million.Infrastructure.Migrations.Extensions;
 using Million.Infrastructure.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -37,6 +38,9 @@ builder.Services.AddScoped<IMillionDbContext, MillionDbContext>();
 
 // add services and repositories
 builder.Services.AddApiExtention();
+
+// add migration services
+builder.Services.AddMigrations();
 
 // Add validators
 builder.Services.AddValidators();
