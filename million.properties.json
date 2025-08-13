@@ -1,0 +1,51 @@
+[{
+  "_id": {
+    "$oid": "689a37a0b4ee1b7b8d4b7455"
+  },
+  "name": "Apartamento en Medellín",
+  "address": "Cra 45 #32-10",
+  "price": {
+    "$numberDecimal": "350000000"
+  },
+  "year": 2020,
+  "internalCode": "PROP-001",
+  "idOwner": "6896bd67bc3ec96e42725637"
+},
+{
+  "_id": {
+    "$oid": "689a37a0b4ee1b7b8d4b7456"
+  },
+  "idOwner": "6896bd67bc3ec96e42725638",
+  "name": "Casa en Envigado",
+  "address": "Calle 12 Sur #25-30",
+  "price": 580000000,
+  "year": 2018,
+  "internalCode": "PROP-002"
+},
+{
+  "_id": {
+    "$oid": "689a63623a296ba93d50c766"
+  },
+  "name": "Terramar",
+  "address": "calle 50",
+  "price": {
+    "$numberDecimal": "200000000"
+  },
+  "year": 2025,
+  "internalCode": "0009",
+  "idOwner": "6896bd67bc3ec96e42725637"
+},
+{
+  "_id": {
+    "$oid": "689baceaed2215d6333cad91"
+  },
+  "name": "Laureles II",
+  "address": "Cra 52 - 63",
+  "price": {
+    "$numberDecimal": "500000000"
+  },
+  "year": 1992,
+  "internalCode": "0011",
+  "idOwner": "6896bd67bc3ec96e42725637",
+  "OwnerName": null
+}]

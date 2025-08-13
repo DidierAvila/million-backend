@@ -1,0 +1,33 @@
+[{
+  "_id": {
+    "$oid": "6896bd67bc3ec96e42725637"
+  },
+  "name": "Laura Gómez",
+  "address": "Calle 98",
+  "photo": "",
+  "birthDate": {
+    "$date": "1985-06-15T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6896bd67bc3ec96e42725638"
+  },
+  "name": "Carlos Pérez",
+  "birthDate": {
+    "$date": "1978-11-03T00:00:00.000Z"
+  },
+  "photo": "https://img.freepik.com/iconos-gratis/persona_318-852467.jpg",
+  "address": "crs 98"
+},
+{
+  "_id": {
+    "$oid": "689a5f423a296ba93d50c765"
+  },
+  "name": "Pedro Lopez",
+  "address": " Cra 58",
+  "photo": "",
+  "birthDate": {
+    "$date": "2025-08-11T05:00:00.000Z"
+  }
+}]

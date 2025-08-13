@@ -1,0 +1,36 @@
+[{
+  "_id": {
+    "$oid": "6897a04241497d636de29c4a"
+  },
+  "name": "Alejo",
+  "lastName": "Pertuz",
+  "email": "alejo@gmail.com",
+  "phone": "12346",
+  "password": "123456",
+  "role": "Admin",
+  "notificationType": "Email"
+},
+{
+  "_id": {
+    "$oid": "6897a04241497d636de29c4b"
+  },
+  "name": "Ana",
+  "lastName": "Lopez",
+  "email": "ana@gmail.com",
+  "phone": "9884",
+  "password": "654321",
+  "role": "User",
+  "notificationType": "Sms"
+},
+{
+  "_id": {
+    "$oid": "689babc18b1b6d8b7a194690"
+  },
+  "name": "Mateo",
+  "lastName": "Cuartas",
+  "email": "mateocuartas@gmail.com",
+  "password": "147852",
+  "role": "User",
+  "phone": null,
+  "notificationType": null
+}]
