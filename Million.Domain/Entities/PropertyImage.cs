@@ -13,7 +13,7 @@ namespace Million.Domain.Entities
         public string IdProperty { get; set; } = null!;
 
         [BsonElement("file")]
-        public string File { get; set; } = null!;
+        public string? File { get; set; }
 
         [BsonElement("enabled")]
         public bool Enabled { get; set; }

@@ -17,6 +17,7 @@ namespace Million.API.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, User")]
         public async Task<ActionResult<IEnumerable<PropertyDto>>> GetAll(
             [FromQuery] string? name = null,
             [FromQuery] string? address = null,
@@ -29,6 +30,7 @@ namespace Million.API.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin, User")]
         public async Task<ActionResult<PropertyDto>> GetById(string id, CancellationToken cancellationToken)
         {
             var property = await _propertyFacade.GetPropertyByIdAsync(id, cancellationToken);
@@ -39,6 +41,7 @@ namespace Million.API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin, User")]
         public async Task<ActionResult<PropertyDto>> Create([FromBody] CreatePropertyDto createDto, CancellationToken cancellationToken)
         {
             var property = await _propertyFacade.CreatePropertyAsync(createDto, cancellationToken);
@@ -49,6 +52,7 @@ namespace Million.API.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin, User")]
         public async Task<IActionResult> Update(string id, [FromBody] UpdatePropertyDto updateDto, CancellationToken cancellationToken)
         {
             var success = await _propertyFacade.UpdatePropertyAsync(id, updateDto, cancellationToken);

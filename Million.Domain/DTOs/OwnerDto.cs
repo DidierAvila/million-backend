@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Http;
+
 namespace Million.Domain.DTOs
 {
     public class OwnerDto
@@ -5,7 +7,7 @@ namespace Million.Domain.DTOs
         public string? Id { get; set; }
         public string Name { get; set; } = null!;
         public string Address { get; set; } = null!;
-        public byte[]? photo { get; set; }
+        public string? Photo { get; set; } // URL to the photo in S3
         public DateTime BirthDate { get; set; }
         public int PropertiesCount { get; set; }
         public string? Messages { get; set; }
@@ -16,7 +18,8 @@ namespace Million.Domain.DTOs
     {
         public string Name { get; set; } = null!;
         public string Address { get; set; } = null!;
-        public byte[]? photo { get; set; }
+        public string? Photo { get; set; } // URL to the photo
+        public IFormFile? PhotoFile { get; set; } // File upload
         public DateTime BirthDate { get; set; }
     }
 
@@ -24,7 +27,8 @@ namespace Million.Domain.DTOs
     {
         public string Name { get; set; } = null!;
         public string Address { get; set; } = null!;
-        public byte[]? photo { get; set; }
+        public string? Photo { get; set; } // URL to the photo
+        public IFormFile? PhotoFile { get; set; } // File upload
         public DateTime BirthDate { get; set; }
     }
 }

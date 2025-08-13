@@ -1,4 +1,6 @@
 using System.Text;
+using Amazon.Extensions.NETCore.Setup;
+using Amazon.S3;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -7,6 +9,7 @@ using Microsoft.OpenApi.Models;
 using Million.API.Extensions;
 using Million.API.Middlewares;
 using Million.Application.Mappings;
+using Million.Application.Services;
 using Million.Domain.Extensions;
 using Million.Infrastructure.DbContexts;
 using Million.Infrastructure.Settings;
@@ -37,6 +40,22 @@ builder.Services.AddApiExtention();
 
 // Add validators
 builder.Services.AddValidators();
+
+// Configure AWS
+builder.Services.AddDefaultAWSOptions(builder.Configuration.GetAWSOptions());
+// Register IAmazonS3 client with credentials from configuration
+builder.Services.AddSingleton<IAmazonS3>(provider => {
+    var configuration = provider.GetRequiredService<IConfiguration>();
+    var accessKey = configuration["AWS:AccessKey"];
+    var secretKey = configuration["AWS:SecretKey"];
+    var region = configuration["AWS:Region"];
+    
+    return new AmazonS3Client(
+        accessKey,
+        secretKey,
+        Amazon.RegionEndpoint.GetBySystemName(region));
+});
+builder.Services.AddScoped<Million.Application.Services.IS3Service, Million.Application.Services.S3Service>();
 
 // AutoMapper Configuration
 builder.Services.AddAutoMapper(cfg => 

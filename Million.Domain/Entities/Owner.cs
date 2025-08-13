@@ -16,7 +16,7 @@ namespace Million.Domain.Entities
         public string Address { get; set; } = null!;
 
         [BsonElement("photo")]
-        public byte[]? photo { get; set; }
+        public string? Photo { get; set; }
 
         [BsonElement("birthDate")]
         public DateTime BirthDate { get; set; }

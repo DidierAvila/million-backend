@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Million.Application.PropertyTraces;
 using Million.Domain.DTOs;
@@ -16,6 +17,7 @@ namespace Million.API.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin, User")]
         public async Task<ActionResult<PropertyTraceDto>> GetById(string id, CancellationToken cancellationToken)
         {
             var trace = await _propertyTraceFacade.GetPropertyTraceByIdAsync(id, cancellationToken);
@@ -26,6 +28,7 @@ namespace Million.API.Controllers
         }
 
         [HttpGet("property/{propertyId}")]
+        [Authorize(Roles = "Admin, User")]
         public async Task<ActionResult<IEnumerable<PropertyTraceDto>>> GetByPropertyId(string propertyId, CancellationToken cancellationToken)
         {
             try
@@ -40,6 +43,7 @@ namespace Million.API.Controllers
         }
 
         [HttpGet("daterange")]
+        [Authorize(Roles = "Admin, User")]
         public async Task<ActionResult<IEnumerable<PropertyTraceDto>>> GetByDateRange(
             [FromQuery] DateTime startDate,
             [FromQuery] DateTime endDate,
@@ -63,6 +67,7 @@ namespace Million.API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin, User")]
         public async Task<ActionResult<PropertyTraceDto>> Create([FromBody] CreatePropertyTraceDto createDto, CancellationToken cancellationToken)
         {
             try

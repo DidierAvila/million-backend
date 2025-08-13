@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Http;
+
 namespace Million.Domain.DTOs
 {
     public class PropertyImageDto
@@ -14,13 +16,15 @@ namespace Million.Domain.DTOs
     public class CreatePropertyImageDto
     {
         public string IdProperty { get; set; } = null!;
-        public string File { get; set; } = null!;
+        public string? File { get; set; }
+        public IFormFile? ImageFile { get; set; }
         public bool Enabled { get; set; } = true;
     }
 
     public class UpdatePropertyImageDto
     {
         public string? File { get; set; }
+        public IFormFile? ImageFile { get; set; }
         public bool? Enabled { get; set; }
     }
 }
