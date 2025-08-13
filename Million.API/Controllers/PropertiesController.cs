@@ -17,7 +17,6 @@ namespace Million.API.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin, User")]
         public async Task<ActionResult<IEnumerable<PropertyDto>>> GetAll(
             [FromQuery] string? name = null,
             [FromQuery] string? address = null,

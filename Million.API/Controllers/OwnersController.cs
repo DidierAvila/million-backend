@@ -22,7 +22,6 @@ namespace Million.API.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin, User")]
         public async Task<ActionResult<IEnumerable<OwnerDto>>> GetAll([FromQuery] string? name, CancellationToken cancellationToken)
         {
             IEnumerable<OwnerDto> owners = string.IsNullOrWhiteSpace(name) 
