@@ -1,13 +1,7 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Million.Infrastructure.DbContexts;
 using Million.Infrastructure.Settings;
 using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Million.Infrastructure.Migrations
 {
